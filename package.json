@@ -17,10 +17,10 @@
     "start": "nodemon --exec babel-node src/index"
   },
   "dependencies": {
-    "apollo-server-express": "^2.17.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "graphql-tools": "^6.2.1",
+    "graphql-yoga": "^1.18.3",
     "helmet": "^4.1.0",
     "morgan": "^1.10.0"
   }

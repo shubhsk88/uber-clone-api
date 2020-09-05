@@ -1,17 +1,22 @@
-import express from 'express';
-import { ApolloServer } from 'apollo-server-express';
+import { GraphQLServer } from 'graphql-yoga';
 import schema from './schema';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
-const app = express();
 
-const server = new ApolloServer({ schema, playground: true });
+const PORT = process.env.PORT || 3000;
+const server = new GraphQLServer({ schema });
+const options = {
+  port: PORT,
+  endpoint: '/graphql',
 
-server.applyMiddleware({ app, path: '/api/graphql' });
+  playground: '/playground',
+};
 
-app.use(cors());
-app.use(morgan('dev'));
-app.use(helmet());
+server.express.use(morgan('dev'));
+server.express.use(helmet());
+server.express.use(cors());
 
-app.listen(3000, () => console.log('THe app is listening to port'));
+server.start(options, () =>
+  console.log(`the app is listening to port ${PORT}`)
+);
