@@ -8,7 +8,7 @@ type User {
   password: String
   phoneNumber: String
   verifiedPhoneNumber: Boolean!
-  profilePhoto:String
+  profilePhoto: String
   isRiding: Boolean!
   isDriving: Boolean!
   isTaken: Boolean!
@@ -18,4 +18,8 @@ type User {
   lastLng: Float
   lastLat: Float
   lastOrientation: Float
+}
+
+type Query {
+  user: User
 }
