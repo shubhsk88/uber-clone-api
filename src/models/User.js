@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-
+import bcrypt, { hashSync } from 'bcrypt';
 const { Schema, Types } = mongoose;
 
 const userSchema = new Schema({
@@ -50,6 +50,18 @@ const userSchema = new Schema({
 userSchema.virtual('fullName').get(function () {
   return this.firstName + ' ' + this.lastName;
 });
+
+userSchema.pre('save', function (next) {
+  if (!this.isModified('password')) {
+    return next();
+  }
+  this.password = hashSync(this.password, 10);
+  next();
+});
+
+userSchema.methods.comparePassword = function (plaintext, callback) {
+  return callback(null, bcrypt.compareSync(plaintext, this.password));
+};
 
 const User = mongoose.model('User', userSchema);
 export default User;
