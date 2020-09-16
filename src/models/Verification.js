@@ -11,7 +11,10 @@ let verificationSchema = new Schema({
     type: String,
   },
   payload: String,
-  target: String,
+  target: {
+    type: String,
+    enum: ['PHONE', 'EMAIL'],
+  },
   used: {
     type: Boolean,
     default: false,
