@@ -1,5 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 
+const PHONE = 'PHONE',
+  EMAIL = 'EMAIL';
 let verificationSchema = new Schema({
   createdAt: {
     type: String,
@@ -13,7 +15,7 @@ let verificationSchema = new Schema({
   payload: String,
   target: {
     type: String,
-    enum: ['PHONE', 'EMAIL'],
+    enum: [PHONE, EMAIL],
   },
   used: {
     type: Boolean,
@@ -21,6 +23,13 @@ let verificationSchema = new Schema({
   },
 });
 
+verificationSchema.pre('save', function (next) {
+  if (this.target === PHONE) {
+    this.key = Math.floor(Math.random() * 100000);
+  } else if (this.target === EMAIL) {
+    this.key = Math.random().toString(36).substr(2);
+  }
+});
 let Verification = mongoose.model('Verification', verificationSchema);
 
 export default Verification;
