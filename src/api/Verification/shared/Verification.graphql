@@ -1,10 +1,10 @@
 type Verification{
-    id:ID!
+    _id:ID!
     createdAt:String!
     updatedAt:String!
     key:String!
     payload:String!
     target:String!
     used:Boolean!
-    
+
 }
