@@ -29,6 +29,7 @@ verificationSchema.pre('save', function (next) {
   } else if (this.target === EMAIL) {
     this.key = Math.random().toString(36).substr(2);
   }
+  next();
 });
 let Verification = mongoose.model('Verification', verificationSchema);
 

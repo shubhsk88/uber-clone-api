@@ -1,7 +1,7 @@
 type Verification{
     _id:ID!
     createdAt:String!
-    updatedAt:String!
+    updatedAt:String
     key:String!
     payload:String!
     target:String!

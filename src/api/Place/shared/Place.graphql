@@ -1,0 +1,10 @@
+type Place{
+    _id:ID!
+    name:String!
+    isFav:Boolean!
+    lat:Float!
+    log:Float!
+    address:String!
+    createdAt:String!
+    updatedAt:String
+}
