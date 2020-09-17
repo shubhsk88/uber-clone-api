@@ -1,0 +1,7 @@
+type Chat {
+  _id: ID!
+  messages: [Message]!
+  participants:[User]!
+  createdAt: String!
+  updatedAt: String
+}

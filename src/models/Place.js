@@ -1,4 +1,4 @@
-import mongoose, { Schema, Types } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
 const placeSchema = new Schema({
   name: String,
@@ -7,11 +7,11 @@ const placeSchema = new Schema({
     default: false,
   },
   lat: {
-    type: Types.Decimal128,
+    type: Schema.Types.Decimal128,
     default: 0,
   },
   log: {
-    type: Types.Decimal128,
+    type: Schema.Types.Decimal128,
     default: 0,
   },
   address: String,
