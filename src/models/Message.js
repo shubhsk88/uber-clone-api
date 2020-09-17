@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+import { USER, MESSAGE, CHAT } from '../constants';
 
 let messageSchema = new Schema(
   {
@@ -9,16 +10,16 @@ let messageSchema = new Schema(
     user: {
       type: Schema.Types.ObjectId,
       required: true,
-      ref: 'User',
+      ref: USER,
     },
     chat: {
       type: Schema.Types.ObjectId,
       required: true,
-      ref: 'Chat',
+      ref: CHAT,
     },
   },
   { timestamps: true }
 );
 
-const Message = mongoose.model('Message', messageSchema);
+const Message = mongoose.model(MESSAGE, messageSchema);
 export default Message;
