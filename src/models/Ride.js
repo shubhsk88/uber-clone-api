@@ -17,3 +17,6 @@ let rideSchema = new Schema({
   createdAt: String,
   updatedAt: String,
 });
+
+const Ride = mongoose.model('Ride', rideSchema);
+export default Ride;
