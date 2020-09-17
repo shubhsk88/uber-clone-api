@@ -1,0 +1,15 @@
+type Ride {
+  _id: ID!
+  pickUpAddress: String!
+  pickupLat: Float!
+  pickupLng: Float!
+  dropOffAddress: String!
+  dropOffLat: Float!
+  dropOffLng: Float!
+  distance: String!
+  status: String!
+  duration: String!
+  price: Float!
+  createdAt: String!
+  updatedAt: String
+}
