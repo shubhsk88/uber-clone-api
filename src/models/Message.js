@@ -5,16 +5,14 @@ let messageSchema = new Schema(
   {
     text: {
       type: String,
-      required: true,
     },
     user: {
       type: Schema.Types.ObjectId,
-      required: true,
+
       ref: USER,
     },
     chat: {
       type: Schema.Types.ObjectId,
-      required: true,
       ref: CHAT,
     },
   },

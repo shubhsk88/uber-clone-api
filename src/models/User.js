@@ -1,5 +1,7 @@
+/* eslint-disable no-useless-escape */
 import mongoose from 'mongoose';
 import bcrypt, { hashSync } from 'bcrypt';
+import { CHAT, MESSAGE } from '../constants';
 const { Schema, Types } = mongoose;
 
 const userSchema = new Schema({
@@ -46,6 +48,16 @@ const userSchema = new Schema({
   lastLng: Types.Decimal128,
   lastLat: Types.Decimal128,
   lastOrientation: Types.Decimal128,
+  chat: {
+    type: Schema.Types.ObjectId,
+    ref: CHAT,
+  },
+  messages: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: MESSAGE,
+    },
+  ],
 });
 userSchema.virtual('fullName').get(function () {
   return this.firstName + ' ' + this.lastName;
