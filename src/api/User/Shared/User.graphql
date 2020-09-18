@@ -4,6 +4,7 @@ type User {
   lastName: String!
   email: String
   verifiedEmail: Boolean!
+  fbId: String
   age: Int
   password: String
   phoneNumber: String
