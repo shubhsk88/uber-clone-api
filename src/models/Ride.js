@@ -1,4 +1,5 @@
 import mongoose, { Schema, Types } from 'mongoose';
+import { USER } from '../constants';
 
 let rideSchema = new Schema({
   pickUpAddress: String,
@@ -16,6 +17,8 @@ let rideSchema = new Schema({
   price: { type: Types.Decimal128, default: 0 },
   createdAt: String,
   updatedAt: String,
+  passenger: { type: Schema.Types.ObjectId, ref: USER },
+  driver: { type: Schema.Types.ObjectId, ref: USER },
 });
 
 const Ride = mongoose.model('Ride', rideSchema);

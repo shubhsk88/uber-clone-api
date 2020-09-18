@@ -1,64 +1,69 @@
 /* eslint-disable no-useless-escape */
 import mongoose from 'mongoose';
 import bcrypt, { hashSync } from 'bcrypt';
-import { CHAT, MESSAGE } from '../constants';
+import { CHAT, MESSAGE, RIDE, VERIFICATION } from '../constants';
 const { Schema, Types } = mongoose;
 
-const userSchema = new Schema({
-  email: {
-    type: String,
-    lowercase: true,
-    trim: true,
-    unique: true,
-    required: 'Email address is required',
-    validate: [validateEmail, 'Please fill a valid email address'],
-    match: [
-      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-      'Please fill a valid email address',
-    ],
-  },
-  verifiedEmail: {
-    type: Boolean,
-    default: false,
-  },
-  lastName: String,
-  firstName: String,
-  age: Number,
-  password: String,
-  phoneNumber: String,
-  verifiedPhoneNumber: {
-    type: Boolean,
-    default: false,
-  },
-  profilePhoto: String,
-  isDriving: {
-    type: Boolean,
-    default: false,
-  },
-  isRiding: {
-    type: Boolean,
-    default: false,
-  },
-  isTaken: {
-    type: Boolean,
-    default: false,
-  },
-  createdAt: Date,
-  updatedAt: Date,
-  lastLng: Types.Decimal128,
-  lastLat: Types.Decimal128,
-  lastOrientation: Types.Decimal128,
-  chat: {
-    type: Schema.Types.ObjectId,
-    ref: CHAT,
-  },
-  messages: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: MESSAGE,
+const userSchema = new Schema(
+  {
+    email: {
+      type: String,
+      lowercase: true,
+      trim: true,
+      unique: true,
+      required: 'Email address is required',
+      validate: [validateEmail, 'Please fill a valid email address'],
+      match: [
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+        'Please fill a valid email address',
+      ],
     },
-  ],
-});
+    verifiedEmail: {
+      type: Boolean,
+      default: false,
+    },
+    lastName: String,
+    firstName: String,
+    age: Number,
+    password: String,
+    phoneNumber: String,
+    verifiedPhoneNumber: {
+      type: Boolean,
+      default: false,
+    },
+    profilePhoto: String,
+    isDriving: {
+      type: Boolean,
+      default: false,
+    },
+    isRiding: {
+      type: Boolean,
+      default: false,
+    },
+    isTaken: {
+      type: Boolean,
+      default: false,
+    },
+
+    lastLng: Types.Decimal128,
+    lastLat: Types.Decimal128,
+    lastOrientation: Types.Decimal128,
+    chat: {
+      type: Schema.Types.ObjectId,
+      ref: CHAT,
+    },
+    messages: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: MESSAGE,
+      },
+    ],
+    verifications: [{ type: Schema.Types.ObjectId, ref: VERIFICATION }],
+    ridesAsPassenger: [{ type: Schema.Types.ObjectId, ref: RIDE }],
+    ridesAsDriver: [{ type: Schema.Types.ObjectId, ref: RIDE }],
+  },
+  { timestamps: true }
+);
 userSchema.virtual('fullName').get(function () {
   return this.firstName + ' ' + this.lastName;
 });
