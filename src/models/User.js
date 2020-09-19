@@ -13,8 +13,14 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    lastName: String,
-    firstName: String,
+    lastName: {
+      type: String,
+      required: true,
+    },
+    firstName: {
+      type: String,
+      required: true,
+    },
     age: Number,
     password: String,
     phoneNumber: String,
