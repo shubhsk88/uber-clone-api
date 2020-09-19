@@ -1,5 +1,4 @@
 import mongoose, { Schema } from 'mongoose';
-import { USER } from '../constants';
 
 const PHONE = 'PHONE',
   EMAIL = 'EMAIL';
@@ -21,10 +20,6 @@ let verificationSchema = new Schema({
   used: {
     type: Boolean,
     default: false,
-  },
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: USER,
   },
 });
 

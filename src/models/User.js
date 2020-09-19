@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-escape */
 import mongoose from 'mongoose';
 import bcrypt, { hashSync } from 'bcrypt';
-import { CHAT, MESSAGE, RIDE, VERIFICATION } from '../constants';
+import { CHAT, MESSAGE, RIDE } from '../constants';
 const { Schema, Types } = mongoose;
 
 const userSchema = new Schema(
@@ -58,7 +58,7 @@ const userSchema = new Schema(
     fbId: {
       type: String,
     },
-    verifications: [{ type: Schema.Types.ObjectId, ref: VERIFICATION }],
+
     ridesAsPassenger: [{ type: Schema.Types.ObjectId, ref: RIDE }],
     ridesAsDriver: [{ type: Schema.Types.ObjectId, ref: RIDE }],
   },
@@ -76,8 +76,8 @@ userSchema.pre('save', function (next) {
   next();
 });
 
-userSchema.methods.comparePassword = function (plaintext, callback) {
-  return callback(null, bcrypt.compareSync(plaintext, this.password));
+userSchema.methods.comparePassword = function (plainText) {
+  return bcrypt.compareSync(plainText, this.password);
 };
 
 const User = mongoose.model('User', userSchema);
