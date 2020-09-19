@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Verification from '../../../models/Verification';
 
 const resolvers = {
@@ -10,6 +11,10 @@ const resolvers = {
         if (existingVerification) {
           existingVerification.remove();
         }
+        const verification = await Verification.create({
+          payload: phoneNumber,
+          target: 'PHONE',
+        });
       } catch (error) {
         return {
           ok: false,

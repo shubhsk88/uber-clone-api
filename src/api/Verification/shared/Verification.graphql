@@ -5,6 +5,4 @@ type Verification {
   key: String!
   payload: String!
   target: String!
-  used: Boolean!
-  
 }

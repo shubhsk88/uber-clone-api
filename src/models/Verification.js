@@ -17,10 +17,6 @@ let verificationSchema = new Schema({
     type: String,
     enum: [PHONE, EMAIL],
   },
-  used: {
-    type: Boolean,
-    default: false,
-  },
 });
 
 verificationSchema.pre('save', function (next) {
