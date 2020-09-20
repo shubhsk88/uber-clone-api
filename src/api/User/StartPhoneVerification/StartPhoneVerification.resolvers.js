@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import Verification from '../../../models/Verification';
+import { sendVerificationSMS } from '../../../utils';
 
 const resolvers = {
   Mutation: {
@@ -15,6 +16,9 @@ const resolvers = {
           payload: phoneNumber,
           target: 'PHONE',
         });
+
+        await sendVerificationSMS(verification.payload, verification.key);
+        return { ok: true, error: null };
       } catch (error) {
         return {
           ok: false,

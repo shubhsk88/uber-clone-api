@@ -1,17 +1,18 @@
 import Twilio from 'twilio';
 
-const twilioClient = Twilio({
-  accountSid: process.env.TWILIO_SID,
-  authToken: TWILIO_TOKEN,
-});
+const accountSid = process.env.TWILIO_SID;
+const authToken = process.env.TWILIO_TOKEN;
+
+const twilioClient = Twilio(accountSid, authToken);
 
 export const sendSMS = (to, body) => {
+  console.log(to, body);
   return twilioClient.messages.create({
     to,
     body,
-    from: process.env.TWILIO.PHONE,
+    from: process.env.TWILIO_PHONE,
   });
 };
 
 export const sendVerificationSMS = (to, key) =>
-  sendSMS(to, (body = `Your verification key is ${key}`));
+  sendSMS(to, `Your verification key is ${key}`);
