@@ -12,7 +12,12 @@ mongoose.connect(process.env.MONGO_APP_URI, {
   useUnifiedTopology: true,
 });
 const PORT = process.env.PORT || 5000;
-const server = new GraphQLServer({ schema });
+const server = new GraphQLServer({
+  schema,
+  context: (req) => {
+    return { req: req.request };
+  },
+});
 const options = {
   port: PORT,
   endpoint: '/graphql',
@@ -22,11 +27,12 @@ const options = {
 
 const jwtmiddleware = async (req, res, next) => {
   const token = req.get('X-JWT');
-  console.log(token);
+
   if (token) {
     const user = await decodeJWT(token);
-
-    console.log(user);
+    if (user) {
+      req.user = user;
+    } else req.user = undefined;
   }
   next();
 };
