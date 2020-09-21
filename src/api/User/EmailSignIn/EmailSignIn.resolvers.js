@@ -17,7 +17,7 @@ const resolvers = {
         }
         const checkPassword = await user.comparePassword(password);
         if (checkPassword) {
-          const token = createJWT(user._id);
+          const token = createJWT(user.id);
           return {
             ok: true,
             token,

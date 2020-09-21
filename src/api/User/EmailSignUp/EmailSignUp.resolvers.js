@@ -15,7 +15,7 @@ const resolvers = {
           };
         } else {
           const newUser = await User.create({ ...args });
-          const token = createJWT(newUser._id);
+          const token = createJWT(newUser.id);
           return { ok: true, token, error: null };
         }
       } catch (error) {

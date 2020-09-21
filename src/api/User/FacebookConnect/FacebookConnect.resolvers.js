@@ -27,7 +27,7 @@ const resolvers = {
           ...input,
           profilePhoto: `http://graph.facebook.com/${fbId}/picture?type=square`,
         });
-        const token = createJWT(newUser._id);
+        const token = createJWT(newUser.id);
         return {
           ok: true,
           error: null,
