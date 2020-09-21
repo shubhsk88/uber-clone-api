@@ -2,7 +2,7 @@
 import mongoose from 'mongoose';
 import bcrypt, { hashSync } from 'bcrypt';
 import { CHAT, MESSAGE, RIDE } from '../constants';
-const { Schema, Types } = mongoose;
+const { Schema } = mongoose;
 
 const userSchema = new Schema(
   {
@@ -42,9 +42,9 @@ const userSchema = new Schema(
       default: false,
     },
 
-    lastLng: Types.Decimal128,
-    lastLat: Types.Decimal128,
-    lastOrientation: Types.Decimal128,
+    lastLng: Schema.Types.Decimal128,
+    lastLat: Schema.Types.Decimal128,
+    lastOrientation: Schema.Types.Decimal128,
     chat: {
       type: Schema.Types.ObjectId,
       ref: CHAT,
