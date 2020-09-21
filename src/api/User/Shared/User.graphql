@@ -18,14 +18,10 @@ type User {
   updatedAt: String
   lastLng: Float
   chat: Chat
- 
+
   messages: [Message]
   lastLat: Float
   lastOrientation: Float
   ridesAsPassenger: [Ride]
   ridesAsDriver: [Ride]
-}
-
-type Query {
-  user: User
 }
