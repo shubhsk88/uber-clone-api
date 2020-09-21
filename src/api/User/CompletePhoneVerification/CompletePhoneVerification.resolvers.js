@@ -15,6 +15,10 @@ const resolvers = {
             error: 'Verification key not found',
             token: null,
           };
+        } else {
+          verification.verified = true;
+          verification.save();
+          
         }
       } catch (error) {
         return {
