@@ -1,5 +1,5 @@
 import Verification from '../../../models/Verification';
-import { User } from '../../../models';
+import User from '../../../models/User';
 
 const resolvers = {
   Mutation: {
@@ -9,6 +9,7 @@ const resolvers = {
           payload: phoneNumber,
           key,
         });
+        console.log(verification);
         if (!verification) {
           return {
             ok: false,
@@ -26,6 +27,7 @@ const resolvers = {
           token: null,
         };
       }
+
       try {
         const user = await User.findOne({ phoneNumber });
 

@@ -24,6 +24,9 @@ let verificationSchema = new Schema({
 });
 
 verificationSchema.pre('save', function (next) {
+  if(!this.isModified('payload')){
+    return next();
+  }
   if (this.target === PHONE) {
     this.key = Math.floor(Math.random() * 100000);
   } else if (this.target === EMAIL) {
