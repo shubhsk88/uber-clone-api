@@ -18,7 +18,6 @@ const resolvers = {
         } else {
           verification.verified = true;
           verification.save();
-          
         }
       } catch (error) {
         return {
@@ -31,12 +30,13 @@ const resolvers = {
         const user = await User.findOne({ phoneNumber });
 
         if (user) {
+          const token = createJWT(user._id);
           user.verifiedPhoneNumber = true;
           user.save();
           return {
             ok: true,
             error: null,
-            token: 'COmming soon ',
+            token,
           };
         } else {
           return {

@@ -1,4 +1,5 @@
 import User from '../../../models/User';
+import createJWT from '../../../utils/createJWT';
 
 const resolvers = {
   Mutation: {
@@ -7,10 +8,11 @@ const resolvers = {
       try {
         const existingUser = await User.findOne({ fbId });
         if (existingUser) {
+          const token = createJWT(existingUser._id);
           return {
             ok: true,
             error: null,
-            token: 'Update Later',
+            token,
           };
         }
       } catch (error) {
@@ -21,15 +23,15 @@ const resolvers = {
         };
       }
       try {
-        await User.create({
+        const newUser = await User.create({
           ...input,
           profilePhoto: `http://graph.facebook.com/${fbId}/picture?type=square`,
         });
-
+        const token = createJWT(newUser._id);
         return {
           ok: true,
           error: null,
-          token: 'User Created',
+          token,
         };
       } catch (error) {
         return {

@@ -1,3 +1,5 @@
+import createJWT from '../../../utils/createJWT';
+
 const { default: User } = require('../../../models/User');
 
 const resolvers = {
@@ -15,9 +17,10 @@ const resolvers = {
         }
         const checkPassword = await user.comparePassword(password);
         if (checkPassword) {
+          const token = createJWT(user._id);
           return {
             ok: true,
-            token: 'Coming Soon',
+            token,
             error: null,
           };
         } else {

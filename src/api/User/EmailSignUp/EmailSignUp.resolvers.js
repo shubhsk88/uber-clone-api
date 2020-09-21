@@ -1,4 +1,5 @@
 import User from '../../../models/User';
+import createJWT from '../../../utils/createJWT';
 
 const resolvers = {
   Mutation: {
@@ -13,8 +14,9 @@ const resolvers = {
             error: 'User already exists.Please try Login instead.',
           };
         } else {
-          await User.create({ ...args });
-          return { ok: true, token: 'Comming Soon', error: null };
+          const newUser = await User.create({ ...args });
+          const token = createJWT(newUser._id);
+          return { ok: true, token, error: null };
         }
       } catch (error) {
         return {
