@@ -6,7 +6,7 @@ import Verification from '../../../models/Verification';
 const resolvers = {
   Mutation: {
     emailSignUp: async (_, args) => {
-      let { email } = args;
+      let { email, phoneNumber } = args;
       try {
         let existingUser = await User.findOne({ email });
         if (existingUser) {
@@ -16,19 +16,31 @@ const resolvers = {
             error: 'User already exists.Please try Login instead.',
           };
         } else {
-          const newUser = await User.create({ ...args });
-          const verification = await Verification.create({
-            payload: newUser.email,
-            target: 'EMAIL',
+          const phoneVerification = await Verification.findOne({
+            phoneNumber,
+            verified: true,
           });
-          sendVerificationEmail(
-            verification.key,
-            newUser.email,
-            newUser.fullName
-          );
+          if (phoneVerification) {
+            const newUser = await User.create({ ...args });
+            const verification = await Verification.create({
+              payload: newUser.email,
+              target: 'EMAIL',
+            });
+            sendVerificationEmail(
+              verification.key,
+              newUser.email,
+              newUser.fullName
+            );
 
-          const token = createJWT(newUser.id);
-          return { ok: true, token, error: null };
+            const token = createJWT(newUser.id);
+            return { ok: true, token, error: null };
+          } else {
+            return {
+              ok: false,
+              error: 'You have not verified your number',
+              token: null,
+            };
+          }
         }
       } catch (error) {
         return {
