@@ -1,5 +1,7 @@
 import User from '../../../models/User';
 import createJWT from '../../../utils/createJWT';
+import { sendVerificationEmail } from '../../../utils/sendEmail';
+import Verification from '../../../models/Verification';
 
 const resolvers = {
   Mutation: {
@@ -15,6 +17,16 @@ const resolvers = {
           };
         } else {
           const newUser = await User.create({ ...args });
+          const verification = await Verification.create({
+            payload: newUser.email,
+            target: 'EMAIL',
+          });
+          sendVerificationEmail(
+            verification.key,
+            newUser.email,
+            newUser.fullName
+          );
+
           const token = createJWT(newUser.id);
           return { ok: true, token, error: null };
         }
