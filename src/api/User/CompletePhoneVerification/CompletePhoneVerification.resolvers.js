@@ -1,5 +1,6 @@
 import Verification from '../../../models/Verification';
 import User from '../../../models/User';
+import createJWT from '../../../utils/createJWT';
 
 const resolvers = {
   Mutation: {

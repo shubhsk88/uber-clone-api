@@ -6,7 +6,7 @@ const resolvers = {
   Mutation: {
     requestEmailVerification: authResolvers(async (_, __, { req }) => {
       const { user } = req;
-      if (user.email) {
+      if (user.email && !user.verifiedEmail) {
         try {
           const oldVerification = await Verification.findOne({
             payload: user.email,
@@ -18,16 +18,18 @@ const resolvers = {
             payload: user.email,
             target: 'EMAIL',
           });
+
           await sendVerificationEmail(
             newVerification.key,
-            newVerification.email,
-            newVerification.fullName
+            user.email,
+            user.fullName
           );
+
           return { ok: true, error: null };
         } catch (error) {
           return {
             ok: false,
-            error: error.messages,
+            error: error.message,
           };
         }
       } else {

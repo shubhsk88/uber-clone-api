@@ -18,5 +18,5 @@ const sendEmail = (subject, html, to) => {
 export const sendVerificationEmail = (key, to, fullName) => {
   const emailSubject = `Please Verify your email Address`;
   const emailBody = `Hi ${fullName}, your verification key is ${key}`;
-  return sendEmail(emailSubject, emailBody);
+  return sendEmail(emailSubject, emailBody, to);
 };

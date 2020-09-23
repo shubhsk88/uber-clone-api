@@ -58,7 +58,6 @@ const userSchema = new Schema(
     ],
     fbId: {
       type: String,
-      unique: true,
     },
 
     ridesAsPassenger: [{ type: Schema.Types.ObjectId, ref: RIDE }],
