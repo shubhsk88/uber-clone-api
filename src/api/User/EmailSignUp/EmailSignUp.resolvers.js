@@ -17,7 +17,7 @@ const resolvers = {
           };
         } else {
           const phoneVerification = await Verification.findOne({
-            phoneNumber,
+            payload: phoneNumber,
             verified: true,
           });
           if (phoneVerification) {
