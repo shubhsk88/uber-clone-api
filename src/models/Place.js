@@ -1,27 +1,28 @@
 import mongoose, { Schema } from 'mongoose';
 
-const placeSchema = new Schema({
-  name: String,
-  isFav: {
-    type: Boolean,
-    default: false,
+const placeSchema = new Schema(
+  {
+    name: String,
+    isFav: {
+      type: Boolean,
+      default: false,
+    },
+    lat: {
+      type: Schema.Types.Decimal128,
+      default: 0,
+    },
+    log: {
+      type: Schema.Types.Decimal128,
+      default: 0,
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
+    address: String,
   },
-  lat: {
-    type: Schema.Types.Decimal128,
-    default: 0,
-  },
-  log: {
-    type: Schema.Types.Decimal128,
-    default: 0,
-  },
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-  },
-  address: String,
-  createdAt: String,
-  updatedAt: String,
-});
+  { timestamps: true }
+);
 
 const Place = mongoose.model('Place', placeSchema);
 
