@@ -50,6 +50,12 @@ const userSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: CHAT,
     },
+    places: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Place',
+      },
+    ],
     messages: [
       {
         type: Schema.Types.ObjectId,

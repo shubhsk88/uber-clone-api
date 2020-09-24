@@ -14,6 +14,10 @@ const placeSchema = new Schema({
     type: Schema.Types.Decimal128,
     default: 0,
   },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
   address: String,
   createdAt: String,
   updatedAt: String,

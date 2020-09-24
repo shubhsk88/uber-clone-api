@@ -18,6 +18,7 @@ type User {
   updatedAt: String
   lastLng: Float
   chat: Chat
+  places:[Place]
 
   messages: [Message]
   lastLat: Float
