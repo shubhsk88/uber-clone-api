@@ -1,20 +1,17 @@
 const { default: Place } = require('../../../models/Place');
 const { default: authResolvers } = require('../../../utils/authResolvers');
-const { default: cleanNullArgs } = require('../../../utils/cleanNullArgs');
 
 const resolvers = {
   Mutation: {
-    editPlace: authResolvers(async (_, args, { req }) => {
+    deletePlace: authResolvers(async (_, args, { req }) => {
       const { user } = req;
-      const { placeID } = args;
       try {
-        const place = await Place.findOne({ _id: placeID, user: user._id });
+        const place = await Place.findOne({ _id: args.placeID, user: user });
         if (place) {
-          const notNull = cleanNullArgs(args);
-          await Place.update({ _id: placeID }, { ...notNull });
+          place.remove();
           return { ok: true, error: null };
         } else {
-          return { ok: false, error: 'User is not authorized' };
+          return { ok: false, error: 'Place not found' };
         }
       } catch (error) {
         return { ok: false, error: error.message };
