@@ -8,8 +8,9 @@ const resolvers = {
       const { user } = req;
       const { placeID } = args;
       try {
-        const place = await Place.findOne({ _id: placeID, user: user._id });
-        if (place) {
+        const place = await Place.findOne({ _id: placeID });
+
+        if (place.userPrimary.toString() === user.id) {
           const notNull = cleanNullArgs(args);
           await Place.update({ _id: placeID }, { ...notNull });
           return { ok: true, error: null };

@@ -6,8 +6,11 @@ const resolvers = {
     deletePlace: authResolvers(async (_, args, { req }) => {
       const { user } = req;
       try {
-        const place = await Place.findOne({ _id: args.placeID, user: user });
-        if (place) {
+        const place = await Place.findOne({
+          _id: args.placeID,
+        });
+        
+        if (place.userPrimary.toString() === user.id) {
           place.remove();
           return { ok: true, error: null };
         } else {
