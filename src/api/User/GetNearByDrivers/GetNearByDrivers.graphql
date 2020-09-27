@@ -4,6 +4,6 @@ type GetNearByDriversResponse {
   drivers: [User]
 }
 
-type Qeuery {
+type Query {
   getNearByDrivers: GetNearByDriversResponse!
 }

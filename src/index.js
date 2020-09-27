@@ -1,4 +1,4 @@
-import { GraphQLServer } from 'graphql-yoga';
+import { GraphQLServer, PubSub } from 'graphql-yoga';
 import 'dotenv/config';
 import schema from './schema';
 import morgan from 'morgan';
@@ -12,12 +12,16 @@ mongoose.connect(process.env.MONGO_APP_URI, {
   useUnifiedTopology: true,
 });
 const PORT = process.env.PORT || 5000;
+
+const pubSub = new PubSub();
+pubSub.ee.setMaxListeners(99);
 const server = new GraphQLServer({
   schema,
   context: (req) => {
-    return { req: req.request };
+    return { req: req.request, pubSub };
   },
 });
+
 const options = {
   port: PORT,
   endpoint: '/graphql',
@@ -36,6 +40,7 @@ const jwtmiddleware = async (req, res, next) => {
   }
   next();
 };
+
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
