@@ -5,9 +5,12 @@ const resolvers = {
   Mutation: {
     addPlace: authResolvers(async (_, args, { req }) => {
       const { user } = req;
+ 
 
       try {
-        await Place.create({ ...args, user });
+        const result = await Place.create({ ...args, userPrimary: user._id });
+        user.places.push(result._id);
+        user.save();
         return { ok: true, error: null };
       } catch (error) {
         return {

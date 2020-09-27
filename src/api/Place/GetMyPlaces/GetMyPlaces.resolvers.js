@@ -6,7 +6,9 @@ const resolvers = {
     getMyPlaces: authResolvers(async (_, __, { req }) => {
       const { user } = req;
       try {
-        const resUser = await User.findOne({ _id: user._id });
+        const resUser = await User.findOne({ _id: user._id }).populate(
+          'places'
+        );
         if (resUser) {
           console.log(resUser);
           return { ok: true, error: null, places: resUser.places };

@@ -69,6 +69,11 @@ const userSchema = new Schema(
     ridesAsPassenger: [{ type: Schema.Types.ObjectId, ref: RIDE }],
     ridesAsDriver: [{ type: Schema.Types.ObjectId, ref: RIDE }],
   },
+  {
+    toJSON: {
+      virtuals: true,
+    },
+  },
   { timestamps: true }
 );
 userSchema.virtual('fullName').get(function () {

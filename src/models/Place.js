@@ -2,7 +2,10 @@ import mongoose, { Schema } from 'mongoose';
 
 const placeSchema = new Schema(
   {
-    name: String,
+    name: {
+      type: String,
+      unique: true,
+    },
     isFav: {
       type: Boolean,
       default: false,
@@ -15,9 +18,10 @@ const placeSchema = new Schema(
       type: Schema.Types.Decimal128,
       default: 0,
     },
-    user: {
+    userPrimary: {
       type: Schema.Types.ObjectId,
       ref: 'User',
+      required: true,
     },
     address: String,
   },
