@@ -4,7 +4,7 @@ import cleanNullArgs from '../../../utils/cleanNullArgs';
 
 const resolvers = {
   Mutation: {
-    reportMovement: authResolvers(async (_, args, { req }) => {
+    reportMovement: authResolvers(async (_, args, { req, pubSub }) => {
       const { user } = req;
       const { lng, lat, orientation } = args;
       const last = { lastLng: lng, lastLat: lat, orientation };
@@ -12,6 +12,7 @@ const resolvers = {
 
       try {
         await User.update({ _id: user._id }, { ...notNull });
+        pubSub.publish('driverUpdate', { driverSubscription: user });
         return { ok: true, error: null };
       } catch (error) {
         return { ok: false, error: error.message };
