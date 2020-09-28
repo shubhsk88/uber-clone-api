@@ -10,7 +10,10 @@ const resolvers = {
             lastLng: userLastLng,
             lastLat: userLastLat,
           } = context.currentUser;
-          const { lastLng: driverLastLng, lastLat: driverLastLat } = payload;
+          const {
+            lastLng: driverLastLng,
+            lastLat: driverLastLat,
+          } = payload.driverSubscription;
 
           return (
             driverLastLat >= userLastLat - 0.05 &&

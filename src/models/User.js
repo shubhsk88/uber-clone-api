@@ -43,9 +43,9 @@ const userSchema = new Schema(
       default: false,
     },
 
-    lastLng: Schema.Types.Decimal128,
-    lastLat: Schema.Types.Decimal128,
-    lastOrientation: Schema.Types.Decimal128,
+    lastLng: Number,
+    lastLat: Number,
+    lastOrientation: Number,
     chat: {
       type: Schema.Types.ObjectId,
       ref: CHAT,

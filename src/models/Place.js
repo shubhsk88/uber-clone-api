@@ -11,11 +11,11 @@ const placeSchema = new Schema(
       default: false,
     },
     lat: {
-      type: Schema.Types.Decimal128,
+      type: Number,
       default: 0,
     },
     log: {
-      type: Schema.Types.Decimal128,
+      type: Number,
       default: 0,
     },
     userPrimary: {
