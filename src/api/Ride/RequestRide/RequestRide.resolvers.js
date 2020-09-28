@@ -2,10 +2,11 @@ const { default: authResolvers } = require('../../../utils/authResolvers');
 
 const resolvers = {
   Mutation: {
-    requestRide: authResolvers(async (_, args, { req }) => {
+    requestRide: authResolvers(async (_, args, { req, pubSub }) => {
       const { user } = req;
       try {
         const ride = await Ride.create({ ...args, passenger: user });
+        pubSub.publish('rideRequest', { nearbyRideSubscription: ride });
         return {
           ok: true,
           error: null,
