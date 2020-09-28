@@ -18,13 +18,25 @@ pubSub.ee.setMaxListeners(99);
 const server = new GraphQLServer({
   schema,
   context: (req) => {
-    return { req: req.request, pubSub };
+    const { context } = req.connection || {};
+    return { req: req.request, pubSub, context };
   },
 });
 
 const options = {
   port: PORT,
   endpoint: '/graphql',
+  subscriptions: {
+    path: '/subscription',
+    onConnect: async (connectionParams) => {
+      const token = connectionParams['X-JWT'];
+      if (token) {
+        const user = await decodeJWT(token);
+        return { currentUser: user };
+      }
+      throw new Error('No-JWT.subscription is not possible');
+    },
+  },
 
   playground: '/playground',
 };
