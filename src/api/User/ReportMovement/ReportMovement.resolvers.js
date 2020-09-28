@@ -12,7 +12,9 @@ const resolvers = {
 
       try {
         await User.update({ _id: user._id }, { ...notNull });
-        pubSub.publish('driverUpdate', { driverSubscription: user });
+        const updatedUser = await User.findById(user._id);
+
+        pubSub.publish('driverUpdate', { driverSubscription: updatedUser });
         return { ok: true, error: null };
       } catch (error) {
         return { ok: false, error: error.message };
