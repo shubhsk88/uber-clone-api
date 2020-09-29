@@ -1,4 +1,4 @@
-import { withFilter } from "graphql-yoga";
+import { withFilter } from 'graphql-yoga';
 
 const resolvers = {
   Subscription: {
@@ -15,7 +15,7 @@ const resolvers = {
           return (
             pickupLat >= userLastLat - 0.05 &&
             pickupLat <= userLastLat + 0.05 &&
-            pikckupLng >= userLastLng - 0.05 &&
+            pickupLng >= userLastLng - 0.05 &&
             pickupLng <= userLastLng + 0.05
           );
         }
