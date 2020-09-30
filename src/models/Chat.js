@@ -4,7 +4,8 @@ import { USER, MESSAGE, CHAT } from '../constants';
 const chatSchema = new Schema(
   {
     messages: [{ type: Schema.Types.ObjectId, ref: MESSAGE }],
-    participants: [{ type: Schema.Types.ObjectId, ref: USER }],
+    passenger: { type: Schema.Types.ObjectId, ref: USER },
+    driver: { type: Schema.Types.ObjectId, ref: USER },
   },
   { timestamps: true }
 );

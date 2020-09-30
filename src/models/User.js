@@ -46,10 +46,8 @@ const userSchema = new Schema(
     lastLng: Number,
     lastLat: Number,
     lastOrientation: Number,
-    chat: {
-      type: Schema.Types.ObjectId,
-      ref: CHAT,
-    },
+    chatAsPassenger: [{ type: Schema.Types.ObjectId, ref: CHAT }],
+    chatAsDriver: [{ type: Schema.Types.ObjectId, ref: CHAT }],
     places: [
       {
         type: Schema.Types.ObjectId,

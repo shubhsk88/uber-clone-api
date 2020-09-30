@@ -1,3 +1,4 @@
+import Chat from '../../../models/Chat';
 import Ride from '../../../models/Ride';
 import authResolvers from '../../../utils/authResolvers';
 
@@ -14,17 +15,19 @@ const resolvers = {
             ride = await Ride.findOne({
               _id: rideID,
               status: 'REQUESTING',
-            });
+            }).populate('passenger');
 
             if (ride) {
               ride.driver = user._id;
               user.isTaken = true;
               user.save();
+              await Chat.create({});
             }
           } else {
             ride = await Ride.findOne({
               _id: rideID,
               driver: user,
+              passenger: ride.passenger,
             });
           }
           if (ride) {
