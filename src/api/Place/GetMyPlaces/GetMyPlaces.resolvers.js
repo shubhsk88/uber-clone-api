@@ -10,7 +10,7 @@ const resolvers = {
           'places'
         );
         if (resUser) {
-          console.log(resUser);
+          
           return { ok: true, error: null, places: resUser.places };
         } else
           return { ok: false, error: 'User not able to find', places: null };

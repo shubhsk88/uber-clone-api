@@ -17,24 +17,23 @@ const resolvers = {
             });
 
             if (ride) {
-              ride.driver = user;
+              ride.driver = user._id;
               user.isTaken = true;
               user.save();
-            } else {
-              ride = await Ride.findOne({
-                _id: rideID,
-                driver: user,
-              });
-              if (ride) {
-                ride.status = status;
-                ride.save();
-                return { ok: true, error: null };
-              } else {
-                return { ok: false, error: "Can't Update Ride" };
-              }
             }
+          } else {
+            ride = await Ride.findOne({
+              _id: rideID,
+              driver: user,
+            });
           }
-          t;
+          if (ride) {
+            ride.status = status;
+            ride.save();
+            return { ok: true, error: null };
+          } else {
+            return { ok: false, error: "Can't Update Ride" };
+          }
         } catch (error) {
           return { ok: false, error: error.message };
         }
