@@ -9,20 +9,37 @@ const resolvers = {
 
       if (user.isDriving) {
         try {
-          const ride = await Ride.findOne({
-            _id: rideID,
-            status: 'REQUESTING',
-          });
-          if (ride) {
-            ride.status = status;
-            ride.save();
-            return { ok: true, error: null };
-          } else {
-            return { ok: false, error: "Can't Update Ride" };
+          let ride;
+          if (status === 'ACCEPTED') {
+            ride = await Ride.findOne({
+              _id: rideID,
+              status: 'REQUESTING',
+            });
+
+            if (ride) {
+              ride.driver = user;
+              user.isTaken = true;
+              user.save();
+            } else {
+              ride = await Ride.findOne({
+                _id: rideID,
+                driver: user,
+              });
+              if (ride) {
+                ride.status = status;
+                ride.save();
+                return { ok: true, error: null };
+              } else {
+                return { ok: false, error: "Can't Update Ride" };
+              }
+            }
           }
+          t;
         } catch (error) {
           return { ok: false, error: error.message };
         }
+      } else {
+        return { ok: false, error: 'You are not driving' };
       }
     }),
   },

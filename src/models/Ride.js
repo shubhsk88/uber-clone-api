@@ -13,7 +13,7 @@ let rideSchema = new Schema(
     status: {
       type: String,
       enum: ['ACCEPTED', 'CANCELED', 'ONROUTE', 'FINISHED', 'REQUESTING'],
-      default: 'ACCEPTED',
+      default: 'REQUESTING',
     },
     duration: String,
     price: { type: Number, default: 0 },
