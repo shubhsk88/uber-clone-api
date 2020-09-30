@@ -10,7 +10,7 @@ const resolvers = {
           payload: phoneNumber,
           key,
         });
-        console.log(verification);
+       
         if (!verification) {
           return {
             ok: false,

@@ -10,7 +10,7 @@ const resolvers = {
         const ride = await Ride.findOne({ _id: rideID }).populate(
           'driver passenger'
         );
-        console.log(ride);
+
         if (ride) {
           if (
             ride.passenger._id.toString() === user.id ||

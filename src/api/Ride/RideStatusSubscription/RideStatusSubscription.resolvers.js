@@ -7,11 +7,10 @@ const resolvers = {
         (_, __, { pubSub }) => pubSub.asyncIterator('rideUpdate'),
         (payload, _, { context }) => {
           const user = context.currentUser;
-          const { driverId, passengerId } = payload.rideStatusSubscription;
+          const { driver, passenger } = payload.rideStatusSubscription;
 
           return (
-            user.id === driverId.toString() ||
-            user.id === passengerId.toString()
+            user.id === driver.toString() || user.id === passenger.toString()
           );
         }
       ),

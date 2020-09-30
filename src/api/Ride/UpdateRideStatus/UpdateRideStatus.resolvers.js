@@ -30,11 +30,9 @@ const resolvers = {
           if (ride) {
             ride.status = status;
             ride.save();
+
             pubSub.publish('rideUpdate', {
-              nearbyRideSubscription: {
-                passengerId: ride.passenger,
-                driverId: ride.driver,
-              },
+              rideStatusSubscription: ride,
             });
 
             return { ok: true, error: null };
