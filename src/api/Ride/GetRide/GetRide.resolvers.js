@@ -7,12 +7,14 @@ const resolvers = {
       const { user } = req;
       const { rideID } = args;
       try {
-        const ride = await Ride.findOne({ _id: rideID });
+        const ride = await Ride.findOne({ _id: rideID }).populate(
+          'driver passenger'
+        );
         console.log(ride);
         if (ride) {
           if (
-            ride.passenger.toString() === user.id ||
-            ride.driver.toString() === user.id
+            ride.passenger._id.toString() === user.id ||
+            ride.driver._id.toString() === user.id
           ) {
             return { ok: true, error: null, ride };
           } else {

@@ -3,7 +3,7 @@ import authResolvers from '../../../utils/authResolvers';
 
 const resolvers = {
   Mutation: {
-    updateRideStatus: authResolvers(async (_, args, { req }) => {
+    updateRideStatus: authResolvers(async (_, args, { req, pubSub }) => {
       const { rideID, status } = args;
       const { user } = req;
 
@@ -30,6 +30,13 @@ const resolvers = {
           if (ride) {
             ride.status = status;
             ride.save();
+            pubSub.publish('rideUpdate', {
+              nearbyRideSubscription: {
+                passengerId: ride.passenger,
+                driverId: ride.driver,
+              },
+            });
+
             return { ok: true, error: null };
           } else {
             return { ok: false, error: "Can't Update Ride" };
