@@ -9,7 +9,7 @@ const resolvers = {
 
       try {
         const chat = await Chat.findOne({ _id: chatId }).populate(
-          'passenger driver'
+          'passenger driver messages'
         );
         if (chat) {
           if (chat.passenger.id === user.id || chat.driver.id === user.id) {

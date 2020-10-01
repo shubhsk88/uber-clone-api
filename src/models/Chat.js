@@ -6,7 +6,7 @@ const chatSchema = new Schema(
     messages: [{ type: Schema.Types.ObjectId, ref: MESSAGE }],
     passenger: { type: Schema.Types.ObjectId, ref: USER },
     driver: { type: Schema.Types.ObjectId, ref: USER },
-    ride: { type: Schema.Types.ObjectId, ref: RIDE, required: true },
+    ride: { type: Schema.Types.ObjectId, ref: RIDE },
   },
   { timestamps: true }
 );
