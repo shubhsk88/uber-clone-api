@@ -4,7 +4,7 @@ const { default: authResolvers } = require('../../../utils/authResolvers');
 
 const resolvers = {
   Mutation: {
-    sendChatMessage: authResolvers(async (_, args, { req }) => {
+    sendChatMessage: authResolvers(async (_, args, { req, pubSub }) => {
       const { user } = req;
       const { chatId, text } = args;
 
@@ -16,10 +16,12 @@ const resolvers = {
             chat.driver.toString() === user.id
           ) {
             const message = await Message.create({ text, user, chat });
+            pubSub.publish('newChatMessage', { messageSubscription: message });
+            console.log(message);
             chat.messages.push(message);
             chat.save();
-            message.populate('user chat');
 
+            message.populate('user chat');
             return { ok: true, message, error: null };
           } else
             return { ok: false, error: 'Not allowed to chat', message: null };
