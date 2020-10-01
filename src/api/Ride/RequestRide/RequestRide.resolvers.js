@@ -6,7 +6,7 @@ const resolvers = {
   Mutation: {
     requestRide: authResolvers(async (_, args, { req, pubSub }) => {
       const { user } = req;
-      if (!user.isRiding) {
+      if (!user.isRiding && !user.isDriving) {
         try {
           const ride = await Ride.create({ ...args, passenger: user });
           pubSub.publish('rideRequest', { nearbyRideSubscription: ride });
@@ -25,7 +25,11 @@ const resolvers = {
           };
         }
       } else {
-        return { ok: false, error: "You can't request two rides", ride: null };
+        return {
+          ok: false,
+          error: "You can't request two rides or you are driver",
+          ride: null,
+        };
       }
     }),
   },

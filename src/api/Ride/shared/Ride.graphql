@@ -12,7 +12,7 @@ type Ride {
   price: Float!
   createdAt: String!
   updatedAt: String
-  passenger:User!
-  driver:User!
-
+  passenger: User!
+  driver: User!
+  chat: Chat
 }

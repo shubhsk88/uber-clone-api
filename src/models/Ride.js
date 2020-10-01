@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { USER } from '../constants';
+import { RIDE, USER } from '../constants';
 
 let rideSchema = new Schema(
   {
@@ -20,6 +20,7 @@ let rideSchema = new Schema(
 
     passenger: { type: Schema.Types.ObjectId, ref: USER },
     driver: { type: Schema.Types.ObjectId, ref: USER },
+    chat: { type: Schema.Types.ObjectId, ref: RIDE },
   },
   { timestamps: true }
 );

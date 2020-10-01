@@ -17,8 +17,9 @@ type User {
   createdAt: String!
   updatedAt: String
   lastLng: Float
-  chat: Chat
-  places:[Place]
+  chatAsPassenger: [Chat]
+  chatAsDriver: [Chat]
+  places: [Place]
 
   messages: [Message]
   lastLat: Float
