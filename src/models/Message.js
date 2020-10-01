@@ -5,6 +5,8 @@ let messageSchema = new Schema(
   {
     text: {
       type: String,
+      required: true,
+      unique: true,
     },
     user: {
       type: Schema.Types.ObjectId,
