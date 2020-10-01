@@ -15,13 +15,13 @@ const resolvers = {
             chat.passenger.toString() === user.id ||
             chat.driver.toString() === user.id
           ) {
-            const message = await Message.create({ text, user, chat });
-            pubSub.publish('newChatMessage', { messageSubscription: message });
-            console.log(message);
+            const getData = await Message.create({ text, user, chat });
+            const message = await Message.findOne({ _id: getData._id });
+
             chat.messages.push(message);
             chat.save();
+            pubSub.publish('newChatMessage', { messageSubscription: message });
 
-            message.populate('user chat');
             return { ok: true, message, error: null };
           } else
             return { ok: false, error: 'Not allowed to chat', message: null };
