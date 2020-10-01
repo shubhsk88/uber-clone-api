@@ -16,7 +16,9 @@ const resolvers = {
             chat.driver.toString() === user.id
           ) {
             const getData = await Message.create({ text, user, chat });
-            const message = await Message.findOne({ _id: getData._id });
+            const message = await Message.findOne({
+              _id: getData._id,
+            });
 
             chat.messages.push(message);
             chat.save();
