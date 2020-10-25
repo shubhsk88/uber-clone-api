@@ -19,7 +19,7 @@ const resolvers = {
             const message = await Message.findOne({
               _id: getData._id,
             });
-
+            
             chat.messages.push(message);
             chat.save();
             pubSub.publish('newChatMessage', { messageSubscription: message });

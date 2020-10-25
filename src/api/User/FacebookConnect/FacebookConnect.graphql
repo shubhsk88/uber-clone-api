@@ -4,13 +4,11 @@ type FacebookResponse {
   token: String
 }
 
-input FacebookInput {
-  firstName: String!
-  lastName: String!
-  fbId: String!
-  email: String
-}
-
 type Mutation {
-  facebookConnect(input: FacebookInput): FacebookResponse!
+  facebookConnect(
+    firstName: String!
+    lastName: String!
+    fbId: String!
+    email: String
+  ): FacebookResponse!
 }

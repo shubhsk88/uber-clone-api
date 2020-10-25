@@ -3,8 +3,8 @@ import createJWT from '../../../utils/createJWT';
 
 const resolvers = {
   Mutation: {
-    facebookConnect: async (_, { input }) => {
-      const { fbId } = input;
+    facebookConnect: async (_, data) => {
+      const { fbId } = data;
       try {
         const existingUser = await User.findOne({ fbId });
         if (existingUser) {
@@ -24,7 +24,7 @@ const resolvers = {
       }
       try {
         const newUser = await User.create({
-          ...input,
+          ...data,
           profilePhoto: `http://graph.facebook.com/${fbId}/picture?type=square`,
         });
         const token = createJWT(newUser.id);
